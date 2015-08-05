@@ -1,0 +1,16 @@
+.input-div{
+    margin-left: 50px;
+    margin-top: 20px;
+}
+
+#find{
+    text-align: center;
+    margin: 100px 0 20px;
+}
+
+ul li{
+    list-style-type: none;
+    font-size: 20px;
+    display: block;
+    padding: 5px 0 5px;
+}
