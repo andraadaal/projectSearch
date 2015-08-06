@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="search">
+<head>
+    <meta charset="UTF-8">
+    <title>New search file</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/main.css">
+</head>
+<body>
+    <div class="input-div" ng-controller="SearchController">
+        <input ng-model="inputValue" type="text" placeholder="folder name" id="find"><br>
+        <p ng-show="inputValue"> Searched: {{inputValue}}</p>
+        <script type="text/ng-template" id="categoryTree">
+            {{ item.name }}
+            <ul ng-if="item.children">
+                <li ng-repeat="item in item.children" ng-include="'categoryTree'">
+                </li>
+            </ul>
+        </script>
+        <ul>
+            <li ng-repeat="item in fileData" item-recursion></li>
+        </ul>
+
+    </div>
+    <div id="tree"></div>
+    <script type="text/javascript" src="angular.min.js"></script>
+    <script src="app.js"></script>
+
+</body>
+</html>
