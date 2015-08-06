@@ -10,19 +10,11 @@
     <div class="input-div" ng-controller="SearchController">
         <input ng-model="inputValue" type="text" placeholder="folder name" id="find"><br>
         <p ng-show="inputValue"> Searched: {{inputValue}}</p>
-        <script type="text/ng-template" id="categoryTree">
-            {{ item.name }}
-            <ul ng-if="item.children">
-                <li ng-repeat="item in item.children" ng-include="'categoryTree'">
-                </li>
-            </ul>
-        </script>
-        <ul>
-            <li ng-repeat="item in fileData" item-recursion></li>
-        </ul>
-
+        <div>
+            <first-render data="fileData" filter-value='inputValue'></first-render>
+        </div>
     </div>
-    <div id="tree"></div>
+
     <script type="text/javascript" src="angular.min.js"></script>
     <script src="app.js"></script>
 

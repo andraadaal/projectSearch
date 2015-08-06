@@ -4,6 +4,8 @@
 (function(){
     var app = angular.module('search',[]);
 
+    var inputV;
+
     app.controller('SearchController', ['$scope', function($scope) {
 
         $scope.fileData = [{
@@ -52,19 +54,39 @@
         $scope.inputValue = '';
         $scope.getInputValue = function(value){
             $scope.inputValue = value;
-        }
-        $scope.searchInputValue = function(){
-
+            inputV=$scope.inputValue;
         }
 
-        $scope.addRow=function(data){
-            $scope.fileData.push({'type':data.type,'name':data.name});
-            if (data.type==='dir'){
-                console.log('e adevarat');
-            }
-            $scope.type='';
-            $scope.name='';
-
-        }
     }]);
+
+    app.directive('firstRender', function () {
+        return {
+            restrict: "E",
+            replace: true,
+            scope: {
+                data: '=',
+                filterValue: '='
+            },
+            template: "<ul><children-render ng-repeat='member in data | filter:filterValue'></children-render></ul>"
+        }
+    });
+
+    app.directive('childrenRender', function ($compile) {
+            return {
+                restrict: "E",
+                replace: true,
+                template: "<div ng-switch on='member.type'>"+
+                                "<li ng-switch-when='dir' class='glyphicon glyphicon-folder-open' id='list-item'>{{' '+member.name}}</li>"+
+                                "<li ng-switch-when='file' class='glyphicon glyphicon-file' id='list-item'>{{' '+member.name}}</li>"+
+                         "</div>",
+                link: function (scope, element) {
+                    if (angular.isArray(scope.member.children)) {
+                        element.append("<first-render data='member.children' filter-value='filterValue'></first-render>");
+                        $compile(element.contents())(scope)
+                    }
+                }
+            }
+    });
+
+
 })();
