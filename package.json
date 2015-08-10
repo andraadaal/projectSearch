@@ -1,0 +1,29 @@
+{
+  "name": "project-search",
+  "version": "1.0.0",
+  "description": "file tree search",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andraadaal/projectSearch.git"
+  },
+  "keywords": [
+    "search"
+  ],
+  "author": "andrada lechintan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/andraadaal/projectSearch/issues"
+  },
+  "homepage": "https://github.com/andraadaal/projectSearch#readme",
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-jshint": "^1.11.2",
+    "gulp-livereload": "^3.8.0",
+    "gulp-util": "^3.0.6",
+    "jshint-stylish": "^2.0.1"
+  }
+}

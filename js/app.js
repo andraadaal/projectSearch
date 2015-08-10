@@ -67,26 +67,50 @@
                 data: '=',
                 filterValue: '='
             },
+            controller:  ['$scope', function ($scope){
+              $scope.iconClasses={
+                  folder: 'glyphicon glyphicon-folder-open',
+                  css: 'glyphicon glyphicon-star',
+                  js: 'glyphicon glyphicon-gift',
+                  html: 'glyphicon glyphicon-heart'
+              };
+            }],
             template: "<ul><children-render ng-repeat='member in data | filter:filterValue'></children-render></ul>"
         }
     });
 
     app.directive('childrenRender', function ($compile) {
-            return {
-                restrict: "E",
-                replace: true,
-                template: "<div ng-switch on='member.type'>"+
-                                "<li ng-switch-when='dir' class='glyphicon glyphicon-folder-open' id='list-item'>{{' '+member.name}}</li>"+
-                                "<li ng-switch-when='file' class='glyphicon glyphicon-file' id='list-item'>{{' '+member.name}}</li>"+
-                         "</div>",
-                link: function (scope, element) {
-                    if (angular.isArray(scope.member.children)) {
-                        element.append("<first-render data='member.children' filter-value='filterValue'></first-render>");
-                        $compile(element.contents())(scope)
-                    }
+        return {
+            restrict: "E",
+            replace: true,
+            template: "<li id='icon'>{{' '+member.name}}</li>",
+            link: function (scope, element) {
+
+                if (angular.isArray(scope.member.children)) {
+                    element.addClass(scope.iconClasses.folder);
+                    element.append("<first-render filter-value='filterValue' data='member.children'></first-render>");
+                    $compile(element.contents())(scope);
+                }
+
+                else {
+                    element.addClass(getClass(scope.member.name, scope.iconClasses));
                 }
             }
+        }
     });
+
+    function getClass(elName, icon){
+        if (elName.indexOf('.html') !== -1) {
+            return icon.html;
+        }
+        if (elName.indexOf('.js') !== -1) {
+            return icon.js;
+        }
+        if (elName.indexOf('.css') !== -1) {
+            return icon.css;
+        }
+        return icon.folder;
+    };
 
 
 })();

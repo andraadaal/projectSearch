@@ -1,4 +1,5 @@
 .idea
-angular.min.js
+vendor
+node_modules
 
 
